@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Area from './area'
-import './areas.css';
 
 class Areas extends Component {
 
@@ -19,19 +18,24 @@ class Areas extends Component {
 		})
 	}
 
-  render() {
-  	if (!this.state.areas) return <p>Loading..</p>
+  	render() {
+  	if (!this.state.areas) return <p>Areas Loading..</p>
   	let areaVal;
 		if(this.state.areas.data) {
 			areaVal = this.state.areas.data.map(area => {
 				return (
-					<Area key={area.position} area={area} />
+					<Area key={area.id} area={area} />
 				);
 			});
 		}
     return [
-    	<div className="test">
-    		Areas List
+    	<h6>Areas</h6>,
+    	<div className="card text-left">
+    		<div className='row'>
+    			<div className='col-sm-3'>Position</div>
+    			<div className='col-sm-7'>Name</div>
+    			<div className='col-sm-2'>Actions</div>
+    		</div>
     		{areaVal}
     	</div>
   	];

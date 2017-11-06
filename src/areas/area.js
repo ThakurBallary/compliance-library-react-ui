@@ -2,13 +2,100 @@ import React, { Component } from 'react';
 
 class Area extends Component {
 
-	render() {
+	constructor(props) {
+		super(props);
+		this.state = {
+			id: this.props.area.id,
+			position: this.props.area.attributes.position,
+			name: this.props.area.attributes.name,
+			editMode: false
+		};
+		this.handleEdit = this.handleEdit.bind(this);
+		this.handleUpdate = this.handleUpdate.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+	}
+
+	handleEdit() {
+		console.log(this.state);
+		this.setState(prevState => ({
+			editMode: !prevState.editMode
+		}));
+	}
+
+	handleUpdate() {
+		this.setState({editMode: false});
+		var data = {
+		   "position": this.state.position,
+		   "name": this.state.name
+		}
+
+		fetch("http://localhost:3001/api/v1/areas", {
+		   method: "PATCH",
+		   // headers: headers,
+		   body:  JSON.stringify(data)
+		})
+		.then(function(response){ 
+		 return response.json();   
+		})
+		.then(function(data){ 
+		console.log(data)
+		});
+	}
+
+	handleChange(event) {
+		const name = event.target.name;
+		const value = event.target.value; 
+		this.setState({
+			[name]: value
+		});
+	}
+
+	renderList() {
 		return [
-			<li key={this.props.area.id} className="area">
-				{this.props.area.attributes.position} - {this.props.area.attributes.name}
-			</li>
+			<div key={this.state.id} 
+				className='row' >
+				<div className="col-sm-3">
+					{this.state.position}</div>
+				<div className="col-sm-7"> {this.state.name}</div>
+				<div className='col-sm-2'>
+					<i className='fa fa-pencil text-info mx-1 hand' onClick={this.handleEdit}></i>
+					<i className='fa fa-trash-o text-danger mx-2 hand'></i>
+				</div>
+			</div>
 		]
 	}
 
+	renderForm() {
+		return [
+			<form>
+			<div key={this.state.id} 
+				className='row' >
+				<div className="col-sm-3">
+					<input type='number' name='position' value={this.state.position} min='1' onChange={this.handleChange} className='form-control' />
+				</div>
+				<div className="col-sm-7">
+					<input type='text' name='name' value={this.state.name} onChange={this.handleChange} className='form-control' />
+				</div>
+				<div className='col-sm-2'>
+					<i className='fa fa-check text-success mx-1 hand' onClick={this.handleUpdate}></i>
+					<i className='fa fa-times text-secondary mx-2 hand'></i>
+				</div>
+			</div>
+			</form>
+		]
+	}
+
+	render() {
+		if (this.state.editMode) {
+			return this.renderForm()			
+		} else {
+			return this.renderList()
+		}
+		// return (
+		// 	<button onClick={this.handleEdit}>
+		// 		{this.state.editMode ? 'ON' : 'OFF'}
+		// 	</button>
+		// )
+	}
 }
 export default Area;
