@@ -24,13 +24,13 @@ class Areas extends Component {
 		if(this.state.areas.data) {
 			areaVal = this.state.areas.data.map(area => {
 				return (
-					<Area key={area.id} area={area} />
+					<Area key={area.id + area.attributes.name} area={area} />
 				);
 			});
 		}
     return [
-    	<h6>Areas</h6>,
-    	<div className="card text-left">
+    	<h6 key='areas-header'>Areas</h6>,
+    	<div key='areas-body' className="card text-left">
     		<div className='row'>
     			<div className='col-sm-3'>Position</div>
     			<div className='col-sm-7'>Name</div>

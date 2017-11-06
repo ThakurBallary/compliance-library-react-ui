@@ -14,17 +14,17 @@ class App extends Component {
           <p className="App-intro">
             To get started, edit <code>src/App.js</code> and save to reload.
           </p> */}
-          <nav class="navbar navbar-dark bg-dark">
-            <div class="container">
-              <nav class="navbar fixed-top navbar-light bg-dark">
-                <a class="navbar-brand" href=''>Compliance Library</a>
+          <nav className="navbar navbar-dark bg-dark">
+            <div className="container">
+              <nav className="navbar fixed-top navbar-light bg-dark">
+                <a className="navbar-brand" href=''>Compliance Library</a>
               </nav>
             </div>
           </nav>
           <div className='mt-5 container'>
             <div className='row'>
               <div className='col-sm-6'>
-                <Areas key="Areas"/>
+                <Areas />
               </div>
             </div>            
           </div>

@@ -16,7 +16,6 @@ class Area extends Component {
 	}
 
 	handleEdit() {
-		console.log(this.state);
 		this.setState(prevState => ({
 			editMode: !prevState.editMode
 		}));
@@ -24,21 +23,25 @@ class Area extends Component {
 
 	handleUpdate() {
 		this.setState({editMode: false});
-		var data = {
+		const url = 'http://localhost:3001/api/v1/areas/' + this.state.id;
+		const area = {
 		   "position": this.state.position,
 		   "name": this.state.name
 		}
 
-		fetch("http://localhost:3001/api/v1/areas", {
-		   method: "PATCH",
-		   // headers: headers,
-		   body:  JSON.stringify(data)
+		fetch(url, {
+		    method: "PATCH",
+		    headers: {
+	          'Accept': 'application/json',
+	          'Content-Type': 'application/json',
+	        },
+		    body: JSON.stringify(area)
 		})
 		.then(function(response){ 
 		 return response.json();   
 		})
-		.then(function(data){ 
-		console.log(data)
+		.then(function(area){ 
+		// console.log(area)
 		});
 	}
 
@@ -67,7 +70,6 @@ class Area extends Component {
 
 	renderForm() {
 		return [
-			<form>
 			<div key={this.state.id} 
 				className='row' >
 				<div className="col-sm-3">
@@ -81,7 +83,6 @@ class Area extends Component {
 					<i className='fa fa-times text-secondary mx-2 hand'></i>
 				</div>
 			</div>
-			</form>
 		]
 	}
 
