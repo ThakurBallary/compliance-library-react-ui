@@ -30,12 +30,7 @@ class Areas extends Component {
 		}
     return [
     	<h6 key='areas-header'>Areas</h6>,
-    	<div key='areas-body' className="card text-left">
-    		<div className='row'>
-    			<div className='col-sm-3'>Position</div>
-    			<div className='col-sm-7'>Name</div>
-    			<div className='col-sm-2'>Actions</div>
-    		</div>
+    	<div key='areas-body' className="card p-1">
     		{areaVal}
     	</div>
   	];

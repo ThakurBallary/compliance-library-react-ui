@@ -23,7 +23,7 @@ class App extends Component {
           </nav>
           <div className='mt-5 container'>
             <div className='row'>
-              <div className='col-sm-6'>
+              <div className='col-sm-4'>
                 <Areas />
               </div>
             </div>            

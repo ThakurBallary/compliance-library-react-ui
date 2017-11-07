@@ -7,22 +7,13 @@ class Area extends Component {
 		this.state = {
 			id: this.props.area.id,
 			position: this.props.area.attributes.position,
-			name: this.props.area.attributes.name,
-			editMode: false
+			name: this.props.area.attributes.name
 		};
-		this.handleEdit = this.handleEdit.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 	}
 
-	handleEdit() {
-		this.setState(prevState => ({
-			editMode: !prevState.editMode
-		}));
-	}
-
 	handleUpdate() {
-		this.setState({editMode: false});
 		const url = 'http://localhost:3001/api/v1/areas/' + this.state.id;
 		const area = {
 		   "position": this.state.position,
@@ -51,52 +42,33 @@ class Area extends Component {
 		this.setState({
 			[name]: value
 		});
+	}	
+
+	handleBlur(event) {
+		const name = event.target.name;
+		const value = event.target.value; 
+		// this.setState({
+		// 	[name]: value
+		// });
+		console.log(name);
+		console.log(value);
 	}
 
-	renderList() {
+	render() {
 		return [
 			<div key={this.state.id} 
 				className='row' >
-				<div className="col-sm-3">
-					{this.state.position}</div>
-				<div className="col-sm-7"> {this.state.name}</div>
-				<div className='col-sm-2'>
-					<i className='fa fa-pencil text-info mx-1 hand' onClick={this.handleEdit}></i>
-					<i className='fa fa-trash-o text-danger mx-2 hand'></i>
+				<div className="col-sm-3 pr-0">
+					<input type='number' name='position' value={this.state.position} min='1' onChange={this.handleChange} onBlur={this.handleBlur} className='form-control form-control-sm' />
 				</div>
-			</div>
-		]
-	}
-
-	renderForm() {
-		return [
-			<div key={this.state.id} 
-				className='row' >
-				<div className="col-sm-3">
-					<input type='number' name='position' value={this.state.position} min='1' onChange={this.handleChange} className='form-control' />
+				<div className="col-sm-7 pr-0">
+					<input type='text' name='name' value={this.state.name} onChange={this.handleChange} onBlur={this.handleBlur} className='form-control form-control-sm' />
 				</div>
-				<div className="col-sm-7">
-					<input type='text' name='name' value={this.state.name} onChange={this.handleChange} className='form-control' />
-				</div>
-				<div className='col-sm-2'>
-					<i className='fa fa-check text-success mx-1 hand' onClick={this.handleUpdate}></i>
+				<div className='col-sm-2'>					
 					<i className='fa fa-times text-secondary mx-2 hand'></i>
 				</div>
 			</div>
 		]
-	}
-
-	render() {
-		if (this.state.editMode) {
-			return this.renderForm()			
-		} else {
-			return this.renderList()
-		}
-		// return (
-		// 	<button onClick={this.handleEdit}>
-		// 		{this.state.editMode ? 'ON' : 'OFF'}
-		// 	</button>
-		// )
 	}
 }
 export default Area;
