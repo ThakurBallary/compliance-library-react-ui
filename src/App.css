@@ -30,3 +30,14 @@
 .hand {
   cursor: pointer;
 }
+
+.form-control:focus {
+  box-shadow: none !important;
+}
+
+.onhover-show-x > .x-item > i {
+  color: #fff !important;
+}
+.onhover-show-x:hover > .x-item > i {
+  color: #aaa !important;
+}
